@@ -1,0 +1,197 @@
+body {
+	color: #444;
+	background-color: #ddd;
+	font-size: 0.9em;
+}
+
+h1 {
+	text-align: center;
+	margin-bottom: 10px;
+}
+
+canvas, .editor {
+	width: 512px;
+}
+
+canvas, .editor, .camera-settings, .light-settings {
+	border: 3px solid #666;
+	background-color: whitesmoke;
+}
+
+canvas {
+	float: left;
+	margin-left: 50px;
+}
+
+button {
+	font-size: 0.7em;
+  padding: 2px 16px;
+  margin: 4px 10 0 0px;
+	cursor: pointer;
+	background-color: #ddd;
+  color: #444;
+}
+
+button:hover {
+	background-color: #999;
+  color: whitesmoke;
+}
+
+.editor {
+	float: right;
+	margin-right: 50px;
+}
+
+.editor label, .camera-settings label, .light-settings label {
+	display: block;
+	font-weight: bold;
+	padding: 2px 0 2px 0;
+	font-size: 1.0em;
+	text-align: center;
+	color: whitesmoke;
+	background-color: #666;
+	border-bottom: 2px solid white;
+}
+
+.editor .options {
+	padding: 0 0 4px;
+}
+
+.editor .options:not(:last-child) {
+	height: 114px;
+	border-bottom: 2px solid #666;
+}
+
+.editor .options .option {
+	margin: 8px 0 0 10px;
+}
+
+.editor .options .option.hidden {
+	visibility: hidden;
+}
+
+.editor .options #existingShapes .shape {
+	margin: 0 -4px;
+}
+
+.editor .options #removeShapes {
+	margin: 5px 0px 0 10px;
+}
+
+.editor .options #removeShapes button {
+	font-size: 0.7em;
+  padding: 2px 16px;
+  margin: 0 2px 0 0;
+}
+
+.editor .options .option label {
+	font-size: 1.0em;
+	padding: 0;
+	text-align: left;
+	color: #444;
+	background-color: whitesmoke;
+	border-bottom: none;
+}
+
+.editor .options .option div {
+	line-height: 0;
+}
+
+
+.editor .options .option label::after {
+	content: ':';
+}
+
+.editor .options .option input[type=range] {
+	width: 450px;
+	position: relative;
+  top: 3px;
+}
+
+.editor .options .option .shape span {
+	font-size: 0.80em;
+	padding-right: 8px;
+}
+
+.editor .options .option span.color {
+	padding-right: 15px;
+}
+
+.editor .options .option span.color input[type=color] {
+	width: 80px;
+}
+
+.editor .options .option div.color {
+	padding-top: 4px;
+}
+
+.editor .options .option div.color input[type=range] {
+	width: 400px;
+}
+
+
+
+.camera-settings {
+	margin-left: 50px;
+}
+
+.light-settings {
+	margin-left: 20px;
+}
+
+.camera-settings, .light-settings {
+	float: left;
+	margin-top: 10px;
+	padding-bottom: 4px;
+}
+
+.camera-settings > div, .light-settings > div {
+	width: 100%;
+	float: left;
+	clear: left;
+	padding-left: 5px;
+}
+
+.camera-settings > div > input[type=range]{
+	float: right;
+	clear: right;
+	margin-right: 10px;
+	width: 250px;
+	position: relative;
+  top: 3px;
+}
+
+.camera-settings input[type=range] {
+	width: 200px;
+	position: relative;
+  top: 3px;
+}
+
+.light-settings > span.color {
+	display: inline-block;
+	padding-top: 2px;
+	margin: 0px 4px;
+}
+
+.light-settings > span.sliders {
+	display: block;
+	padding-top: 2px;
+	margin: 0 8px;
+}
+
+.light-settings > span.sliders > input[type=range] {
+	width: 220px;
+	position: relative;
+  top: 3px;
+}
+
+.light-settings > span.buttons {
+	display: block;
+	padding-top: 2px;
+	margin: 0 8px;
+}
+
+
+div.clear {
+	clear: both;
+}

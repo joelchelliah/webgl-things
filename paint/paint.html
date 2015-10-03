@@ -1,0 +1,70 @@
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+  <title>Painting with the mouse</title>
+
+  <script id="vertex-shader" type="x-shader/x-vertex">
+    attribute vec4 vPosition;
+    attribute vec4 vColor;
+    varying vec4 fColor;
+    
+    void main() {
+      gl_Position = vPosition;
+      fColor = vColor;
+    }
+  </script>
+
+  <script id="fragment-shader" type="x-shader/x-fragment">
+    precision mediump float;
+    varying vec4 fColor;
+    
+    void main() {
+      gl_FragColor = fColor;
+    }
+  </script>
+
+  <script type="text/javascript" src="../common/webgl-utils.js"></script>
+  <script type="text/javascript" src="../common/initShaders.js"></script>
+  <script type="text/javascript" src="../common/MV.js"></script>
+  <script type="text/javascript" src="paint.js"></script>
+  <link rel="stylesheet" type="text/css" href="paint.css">
+</head>
+
+<body>
+  <h2>Painting with the mouse</h2>
+
+  <canvas id="gl-canvas" width="512" height="512">
+    Oops ... your browser doesn't support the HTML5 canvas element
+  </canvas>
+
+  <div class="options">
+    <strong>Color:</strong>
+    <input id="red-radio" type="radio" name="color" value="red" checked="true">
+      Red
+    </input>
+    <input id="green-radio" type="radio" name="color" value="green">
+      Green
+    </input>
+    <input id="blue-radio" type="radio" name="color" value="blue">
+      Blue
+    </input>
+    <input id="black-radio" type="radio" name="color" value="black">
+      Black
+    </input>
+  </div>
+  
+  <div class="options">
+    <strong>Line thickness:</strong>
+    1
+    <input id="thickness-slider" type="range" min="1" max="5" step="1" value="3"/>
+    5
+  </div>
+
+<div class="options">
+  <button id = "clearBoard">Clear canvas</button>
+</div>
+
+</body>
+
+</html>

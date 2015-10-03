@@ -1,0 +1,159 @@
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+  <title>Simple CAD application</title>
+
+  <script id="vertex-shader" type="x-shader/x-vertex">
+    mat4 translateVec(vec3 d) {
+      return mat4(
+        1.0, 0.0, 0.0, 0.0,
+        0.0, 1.0, 0.0, 0.0,
+        0.0, 0.0, 1.0, 0.0,
+        d.x, d.y, d.z, 1.0 );
+    }
+
+    mat4 rotateVec(vec3 theta) {
+      vec3 angle = radians( theta );
+      vec3 c = cos( angle );
+      vec3 s = sin( angle );
+
+      return mat4(
+        c.y * c.z, s.x * s.y * c.z - c.x * s.z, s.x * s.z + c.x * s.y * c.z, 0.0,
+        c.y * s.z, s.x * s.y * s.z + c.x * c.z, c.x * s.y * s.z - s.x * c.z, 0.0,
+        -s.y     , s.x * c.y                  , c.x * c.y,                   0.0,
+        0.0      , 0.0                        , 0.0      ,                   1.0 );
+    }
+
+    mat4 scaleVec(vec3 s) {
+      return mat4(
+        s.x, 0.0, 0.0, 0.0,
+        0.0, s.y, 0.0, 0.0,
+        0.0, 0.0, s.z, 0.0,
+        0.0, 0.0, 0.0, 1.0 );
+    }
+
+    attribute vec4 vPosition;
+    attribute vec4 vColor;
+    varying vec4 fColor;
+
+    uniform vec3 distance;
+    uniform vec3 theta;
+    uniform vec3 size;
+
+    void main()
+    {
+      fColor = vColor;
+      gl_Position = translateVec(distance) * rotateVec(theta) * scaleVec(size) * vPosition;
+    }
+  </script>
+
+  <script id="fragment-shader" type="x-shader/x-fragment">
+    precision mediump float;
+    varying vec4 fColor;
+
+    void main()
+    {
+      gl_FragColor = fColor;
+    }
+  </script>
+
+  <script type="text/javascript" src="../Common/webgl-utils.js"></script>
+  <script type="text/javascript" src="../Common/initShaders.js"></script>
+  <script type="text/javascript" src="../Common/MV.js"></script>
+  <script type="text/javascript" src="cad.js"></script>
+  <link rel="stylesheet" type="text/css" href="cad.css">
+</head>
+
+<body>
+  <h1>Simple CAD application</h1>
+
+  <canvas id="gl-canvas" width="512" height="512">
+    Oops ... your browser doesn't support the HTML5 canvas element
+  </canvas>
+
+  <div class="editor">
+    <label> Select shape </label>
+    <div class="options">
+
+      <div class="option">
+        <label>Add a new shape</label>
+          <button id="addCone">Cone</button>
+          <button id="addCylinder">Cylinder</button>
+          <button id="addSphere">Sphere</button>
+      </div>
+
+      <div id="existingShapes" class="option hidden">
+        <label>Selected shape</label>
+      </div>
+      <div id="removeShapes" class="option hidden">
+        <button id="removeShape">Remove shape</button>
+        <button id="clearShapes">Clear</button>
+      </div>
+    </div>
+
+    <label> Transform selected shape </label>
+
+    <div class="options">
+      <div class="option">
+        <label>Scaling</label>
+        <div>
+          X 
+          <input id="xScale" type="range" min="-2.0" max="2.3" step="0.01" value="1.0"/>
+        </div>
+        <div>
+          Y 
+          <input id="yScale" type="range" min="-2.0" max="2.3" step="0.01" value="1.0"/>
+        </div>
+        <div>
+          Z 
+          <input id="zScale" type="range" min="-2.0" max="2.3" step="0.01" value="1.0"/>
+        </div>
+        <div>
+          <strong>*</strong> 
+          <input id="allScale" type="range" min="-2.0" max="2.3" step="0.01" value="1.0"/>
+        </div>
+      </div>
+
+      <div class="option">
+        <label>Rotation</label>
+        <div>
+          X 
+          <input id="xRot" type="range" min="0" max="360" step="1" value="180"/>
+        </div>
+        <div>
+          Y 
+          <input id="yRot" type="range" min="0" max="360" step="1" value="180"/>
+        </div>
+        <div>
+          Z 
+          <input id="zRot" type="range" min="0" max="360" step="1" value="180"/>
+        </div>
+      </div>
+
+      <div class="option">
+        <label>Translation</label>
+        <div>
+          X 
+          <input id="xTrans" type="range" min="-1.0" max="1.0" step="0.01" value="0.0"/>
+        </div>
+        <div>
+          Y 
+          <input id="yTrans" type="range" min="-1.0" max="1.0" step="0.01" value="0.0"/>
+        </div>
+        <div>
+          Z 
+          <input id="zTrans" type="range" min="-1.0" max="1.0" step="0.01" value="0.0"/>
+        </div>
+      </div>
+      <div class="option">
+        <label>Other options</label>
+          <button id="toggleWireframe">Toggle wireframe</button>
+          <button id="toggleColors">Toggle colors</button>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,117 @@
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+  <title>Simple texture mapping</title>
+
+  <script id="vertex-shader" type="x-shader/x-vertex">
+    attribute vec4 vPosition, vNormal, vColor;
+    attribute vec2 vTexCoord;
+
+    varying vec4 fColor;
+    varying vec2 fTexCoord;
+
+    uniform vec3 eyePosition;
+
+    uniform mat4 normalMatrix, modelViewMatrix;
+
+    void main()
+    {
+      fColor = vColor;
+      fTexCoord = vTexCoord;
+      gl_Position = modelViewMatrix * vPosition;
+    }
+  </script>
+
+  <script id="fragment-shader" type="x-shader/x-fragment">
+    precision mediump float;
+
+    varying vec4 fColor;
+    varying  vec2 fTexCoord;
+
+    uniform sampler2D texture;
+
+    void main()
+    {
+      gl_FragColor = fColor * texture2D( texture, fTexCoord );
+    }
+  </script>
+
+  <script type="text/javascript" src="../Common/webgl-utils.js"></script>
+  <script type="text/javascript" src="../Common/initShaders.js"></script>
+  <script type="text/javascript" src="../Common/MV.js"></script>
+  <script type="text/javascript" src="texture.js"></script>
+  <link rel="stylesheet" type="text/css" href="texture.css">
+</head>
+
+<body>
+  <h1>Simple texture mapping</h1>
+
+  <canvas id="gl-canvas" width="512" height="512">
+    Oops ... your browser doesn't support the HTML5 canvas element
+  </canvas>
+
+  <div class="editor">
+    <label> Choose Shape </label>
+    <div class="options">
+      <div class="option">
+          <button id="selectCube">Cube</button>
+          <button id="selectSphere">Sphere</button>
+      </div>
+    </div>
+
+    <label> Choose Texture </label>
+    <div class="options">
+    <div class="option">
+          <button id="selectCheckered">Checkered</button>
+          <button id="selectCheckeredSin">Sinusoidal</button>
+          <button id="selectImage">Map</button>
+      </div>
+    </div>
+
+    <label> Transformation </label>
+    <div class="options">
+      <div class="option">
+        <label>Scale</label>
+        <div>
+          X 
+          <input id="xScale" type="range" min="-1.5" max="1.5" step="0.01" value="1.0"/>
+        </div>
+        <div>
+          Y 
+          <input id="yScale" type="range" min="-1.5" max="1.5" step="0.01" value="1.0"/>
+        </div>
+        <div>
+          Z 
+          <input id="zScale" type="range" min="-1.5" max="1.5" step="0.01" value="1.0"/>
+        </div>
+      </div>
+
+      <div class="option">
+        <label>Rotate</label>
+        <div>
+          X 
+          <input id="xRot" type="range" min="0" max="360" step="1" value="180"/>
+        </div>
+        <div>
+          Y 
+          <input id="yRot" type="range" min="0" max="360" step="1" value="180"/>
+        </div>
+        <div>
+          Z 
+          <input id="zRot" type="range" min="0" max="360" step="1" value="180"/>
+        </div>
+      </div>
+    </div>
+
+    <label> Other options </label>
+    <div class="options">
+    <div class="option">
+          <button id="toggleColor">Toggle color</button>
+          <button id="toggleTexture">Toggle texture</button>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

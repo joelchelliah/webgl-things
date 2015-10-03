@@ -29,20 +29,27 @@ function setUpWebGL() {
 }
 
 function initEventHandlers() {
-  document.getElementById("theta-slider").onchange = function(e) {
-    var target = e.target || e.srcElement;
-    theta = target.value;
-    render();
-  };
-  document.getElementById("divisions-slider").onchange = function(e) {
-    var target = e.target || e.srcElement;
-    numSubdivisions = target.value;
-    render();
-  };
+  document.getElementById("theta-slider").onchange = updateTheta;
+  document.getElementById("theta-slider").oninput = updateTheta;
+  document.getElementById("divisions-slider").onchange = updateSubdivisions;
+  document.getElementById("divisions-slider").oninput = updateSubdivisions;
+
   document.getElementById("tri-radio").onchange = render;
   document.getElementById("sqr-radio").onchange = render;
   document.getElementById("str-radio").onchange = render;
   document.getElementById("flw-radio").onchange = render;
+}
+
+function updateTheta(e) {
+  var target = e.target || e.srcElement;
+  theta = target.value;
+  render();
+}
+
+function updateSubdivisions(e) {
+  var target = e.target || e.srcElement;
+  numSubdivisions = target.value;
+  render();
 }
 
 function render() {
